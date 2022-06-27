@@ -16,6 +16,7 @@ class JonSchedule {
         }catch(error){
             console.log("Error Occured in cron job")
             console.log(error);
+            return true; 
         }
          console.log(" end startTaxRegistration  job schedule");
     }
@@ -28,6 +29,7 @@ class JonSchedule {
         }catch(error){
             console.log("Error Occured in cron job")
             console.log(error); 
+            return true;
         }
       console.log(" end startPostCertificate  job schedule");
     }
