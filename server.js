@@ -6,11 +6,29 @@ const dbConfig = require("./app/config/db.config");
 const authConfig = require("./app/config/auth.config");
 const JonSchedule = require("./app/controllers/cronjob.scheduler");
 const app = express();
+const oracledb = require('oracledb');
 
 var corsOptions = {
   origin: "http://localhost:8081"
 };
 
+async function init(){
+  try{
+    await oracledb.createPool({
+      user          : dbConfig.ORACLE_DB_USER,
+      password      : dbConfig.ORACLE_DB_PASSWORD,               
+      connectString : dbConfig.ORACLE_DB_CONNECTION_STRING,
+      poolIncrement : 0,
+      poolMax       : 10,
+      poolMin       : 8
+    });
+    
+  }catch(error){
+console.log("error occured while connecting with oracledb",error);
+  }
+  
+}
+init();
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -34,7 +52,7 @@ db.mongoose
     console.error("Connection error", err);
     process.exit();
   });
-
+  
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to  application." });
@@ -48,10 +66,11 @@ require("./app/routes/user.routes")(app);
 const PORT = process.env.PORT || authConfig.port;
 
 
-cron.schedule("*/10 * * * * *", function() {
-  //console.log("running a task every 10 second");
+cron.schedule("0 0 */1 * * *", function() {
+  console.log("running a task every 1 hour");
   const job = new JonSchedule();
-  // job.start();
+  job.startTaxRegistration();
+  job.startPostCertificate();
 });
 
 app.listen(PORT, () => {

@@ -1,1 +1,3 @@
-# asycuda-rest-api
+# asycuda-api
+Run NPM install 
+npm start

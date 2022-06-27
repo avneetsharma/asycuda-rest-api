@@ -8,19 +8,32 @@ const apis = new ThirdPartyAPIs();
 class JonSchedule {
     
 
-    async start(){
-        console.log("start job schedule")
-           await apis.userLocalLogin()
-                   .then(async (getAuthToken)=>{
-                    console.log(getAuthToken.accessToken);
-                      await apis.scheduleJobForTaxRegistation(getAuthToken.accessToken);
-                      await apis.scheduleJobForPostCertificate(getAuthToken.accessToken);
-                   })  
-                   .catch(error => {
-                    console.log(error);
-                   })
-         console.log("end job schedule");
+    async startTaxRegistration(){
+        console.log("startTaxRegistration job schedule")
+        try{
+            let authentication = await apis.userLocalLogin();
+            apis.scheduleJobForTaxRegistation(authentication.accessToken);
+        }catch(error){
+            console.log("Error Occured in cron job")
+            console.log(error);
+            return true; 
+        }
+         console.log(" end startTaxRegistration  job schedule");
     }
+
+    async startPostCertificate(){
+        console.log("startPostCertificate job schedule")
+        try{
+            let authentication = await apis.userLocalLogin();
+            apis.scheduleJobForPostCertificate(authentication.accessToken);
+        }catch(error){
+            console.log("Error Occured in cron job")
+            console.log(error); 
+            return true;
+        }
+      console.log(" end startPostCertificate  job schedule");
+    }
+
   };
 
   module.exports = JonSchedule;

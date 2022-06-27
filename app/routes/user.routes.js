@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
 
 // This is internal schedular   
-  app.get("/api/tax-registration", [authJwt.verifyToken],controller.taxRegistration);// This is for tax registation 
+  app.get("/api/tax-registration",[authJwt.verifyToken],controller.taxRegistration);// This is for tax registation 
   app.get("/api/push-all-tax-cetificates",[authJwt.verifyToken],controller.processCertData);
 
 
