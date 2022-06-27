@@ -1,3 +1,3 @@
 # asycuda-api
-Run NPM install 
+run npm install \n
 npm start
