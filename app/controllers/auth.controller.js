@@ -129,7 +129,7 @@ exports.signin = (req, res) => {
 };
 
 
-exports.newToekn = (req, res) => {
+exports.newToken = (req, res) => {
   const postData = req.body
   // if refresh token exists
   if((postData.refreshToken) && (postData.refreshToken in tokenList)) {
