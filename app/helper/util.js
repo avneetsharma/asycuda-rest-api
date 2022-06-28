@@ -37,7 +37,7 @@ class ThirdPartyAPIs {
         
         return new Promise((resolve, reject)=>{
             const headers = { Authorization: `Bearer ${token}` ,  "Content-Type" : 'application/json' };
-            axios.post(process.env.TAX_RESGISTRATION, body, { headers })
+            axios.post(process.env.TAX_REGISTRATION, body, { headers })
             .then((resp)=> {
                 //console.log(resp);
                 return resolve (resp.data)
@@ -72,7 +72,7 @@ class ThirdPartyAPIs {
         
         return new Promise((resolve, reject)=>{
             const headers = { "x-access-token": ` ${token}` ,  "Content-Type" : 'application/json' };
-            axios.get(process.env.TAX_RESGISTRATION_LOCAL, { headers })
+            axios.get(process.env.TAX_REGISTRATION_LOCAL, { headers })
             .then((resp)=> {
                 console.log(resp);
             })
